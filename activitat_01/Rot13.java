@@ -11,7 +11,7 @@ public class Rot13 {
             'N', 'Ñ', 'O', 'Ò', 'Ó', 'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'Ü', 'V', 'W', 'X', 'Y', 'Z'};
 
     public static void main(String[] args) {
-        String prova = "bbb";
+        String prova = "hOlA qUe tAl";
 
         String xifrat = xifraRot13(prova);
 
@@ -90,3 +90,8 @@ public class Rot13 {
         return "a";
     }
  }
+
+/*
+* pxúi àçn ciú
+* PXÚI ÀÇN CIÚ
+*/
