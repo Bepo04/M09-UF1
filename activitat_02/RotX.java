@@ -8,7 +8,7 @@ public class RotX {
     'Ï', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'Ò', 'Ó', 'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'Ü', 'V', 'W', 'X', 'Y', 'Z'};
 
     public static String xifraRotX(String cadena, int desp) {
-        if (desp < majuscules.length) return "ERROR: S'accepten valors fins al 38";
+        if (desp >= majuscules.length) return "ERROR: S'accepten valors fins al 37";
         String xifrat = "";
         //Troba la lletra
         for (int i = 0; i < cadena.length(); i++) {
@@ -40,10 +40,42 @@ public class RotX {
         return aRetornar;
     }
 
+    public static String desxifraRotX(String cadena, int desp) {
+        if (desp >= majuscules.length) return "ERROR: S'accepten valors fins al 37";
+        String xifrat = "";
+        //Troba la lletra
+        for (int i = 0; i < cadena.length(); i++) {
+            char caracter = cadena.charAt(i);
+            
+            if (!Character.isLetter(caracter) ) {
+                xifrat = xifrat + caracter;
+            } else if (Character.isUpperCase(caracter)) {
+                xifrat = xifrat + desxifraLletra(caracter, majuscules, desp);
+            } else  xifrat = xifrat + desxifraLletra(caracter, minuscules, desp);
+        }
+        return xifrat;
+    }
+
+    public static char desxifraLletra(char caracter, char[] abc, int desp) {
+        int posicioInicial = 0;
+        char aRetornar = 'e';
+        for (int i = 0; i < abc.length; i++) {
+            if (abc[i] == caracter) {
+                posicioInicial = i;
+                break;
+            }
+        }
+        if (posicioInicial - desp >= 0) {
+            aRetornar = abc[posicioInicial-desp];
+        } else {
+            aRetornar = abc[abc.length - Math.abs(posicioInicial - desp)];
+        }
+        return aRetornar;
+    }
+
     public static void main(String[] args) {
-        
         String prova = "Hola que tal";
-        
-        System.out.println("String de prova xifrada: " + xifraRotX(prova, 13));
+        System.out.println("String de prova xifrada: " + xifraRotX(prova, 37));
+        System.out.println("String de prova xifrada: " + desxifraRotX(xifraRotX(prova, 37), 37));
     }
 }
