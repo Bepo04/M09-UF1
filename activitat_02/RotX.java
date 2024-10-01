@@ -21,17 +21,17 @@ public class RotX {
      */
     public static String xifraRotX(String cadena, int desp) {
         if (desp >= majuscules.length) return "ERROR: S'accepten valors fins al 37";
-        String xifrat = "";
+        StringBuilder xifrat = new StringBuilder(cadena.length());
         //Troba la lletra
         for (int i = 0; i < cadena.length(); i++) {
             char caracter = cadena.charAt(i);
             if (!Character.isLetter(caracter) ) {
-                xifrat = xifrat + caracter;
+                xifrat.append(caracter);
             } else if (Character.isUpperCase(caracter)) {
-                xifrat = xifrat + xifraLletra(caracter, majuscules, desp);
-            } else  xifrat = xifrat + xifraLletra(caracter, minuscules, desp);
+                xifrat.append(xifraLletra(caracter, majuscules, desp));
+            } else  xifrat.append(xifraLletra(caracter, minuscules, desp));
         }
-        return xifrat;
+        return xifrat.toString();
     }
 
     /*
@@ -61,18 +61,18 @@ public class RotX {
      */
     public static String desxifraRotX(String cadena, int desp) {
         if (desp >= majuscules.length) return "ERROR: S'accepten valors fins al 37";
-        String xifrat = "";
+        StringBuilder xifrat = new StringBuilder(cadena.length());
         //Troba la lletra
         for (int i = 0; i < cadena.length(); i++) {
             char caracter = cadena.charAt(i);
             
             if (!Character.isLetter(caracter) ) {
-                xifrat = xifrat + caracter;
+                xifrat.append(caracter);
             } else if (Character.isUpperCase(caracter)) {
-                xifrat = xifrat + desxifraLletra(caracter, majuscules, desp);
-            } else  xifrat = xifrat + desxifraLletra(caracter, minuscules, desp);
+                xifrat.append(desxifraLletra(caracter, majuscules, desp));
+            } else  xifrat.append(desxifraLletra(caracter, minuscules, desp));
         }
-        return xifrat;
+        return xifrat.toString();
     }
 
     /*
