@@ -114,7 +114,7 @@ public class RotX {
     }
 
     public static void comprovaResultats(int desp) {
-        String[] provesXifrades = new String[5];
+        String[] provesXifrades = new String[proves.length];
         System.out.println("    Texts de prova xifrats:");
         for (int i = 0; i < proves.length; i++) {
             provesXifrades[i] = xifraRotX(proves[i], desp);
