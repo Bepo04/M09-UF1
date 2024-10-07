@@ -66,11 +66,19 @@ public class MonoAlfabetic {
     public static void main(String[] args) {
         //Primer cal cridar al mètode permutar() per a generar l'array permutat
         permutaAlfabet();
-        String prova = "Hola me llamo Pablo";
-        String provaXifrada = xifraMonoAlfa(prova);
-        System.out.println("Text xifrat: " + provaXifrada);
-
-        String provaDesxifrada = desxifraMonoAlfa(provaXifrada);
-        System.out.println("Text desxifrat: " + provaDesxifrada );
+        String prova1 = "Hola que tal";
+        String prova2 = "provem --- amb &&& caracters !!!!! especials           .";
+        String prova3 = "1234072079402834092835";
+        String prova4 = "pròvém cáràctèrs àccéntüats í úuuu";
+        String[] proves = {prova1, prova2, prova3, prova4};
+        String[] provesXifrades =  new String[4];
+        for (int i = 0; i < proves.length; i++) {
+            provesXifrades[i] = xifraMonoAlfa(proves[i]);
+            System.out.println("====================================================================");
+            System.out.println("Prova xifrada " + (i+1) + ": " + provesXifrades[i]);
+            System.out.println("Prova desxifrada " + (i+1) + ": " + proves[i]);
+            System.out.println("====================================================================");
+            System.out.println();
+        }
     }
 }
