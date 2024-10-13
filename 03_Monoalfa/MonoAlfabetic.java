@@ -76,7 +76,7 @@ public class MonoAlfabetic {
             provesXifrades[i] = xifraMonoAlfa(proves[i]);
             System.out.println("====================================================================");
             System.out.println("Prova xifrada " + (i+1) + ": " + provesXifrades[i]);
-            System.out.println("Prova desxifrada " + (i+1) + ": " + proves[i]);
+            System.out.println("Prova desxifrada " + (i+1) + ": " + desxifraMonoAlfa(provesXifrades[i]));
             System.out.println("====================================================================");
             System.out.println();
         }

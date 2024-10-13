@@ -1,0 +1,2 @@
+#Ignorem els arxius .class per evitar conflictes
+*.class
