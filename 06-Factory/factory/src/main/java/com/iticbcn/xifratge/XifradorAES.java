@@ -16,11 +16,11 @@ import javax.crypto.Cipher;
  */
 public class XifradorAES implements Xifrador {
 
-    public final String ALGORISME_XIFRAT = "AES";
-    public final String ALGORISME_HASH = "SHA-256";
-    public final String FORMAT_AES = "AES/CBC/PKCS5Padding"; 
-
-    private final int MIDA_IV = 16;
+    public static final String ALGORISME_XIFRAT = "AES";
+    public static final String ALGORISME_HASH = "SHA-256";
+    public static final String FORMAT_AES = "AES/CBC/PKCS5Padding"; 
+    private static final int MIDA_IV = 16;
+    
     private byte[] iv = new byte[MIDA_IV];
     //private final String CLAU = "NachoYAndresTienenQueLimpiarse";
 

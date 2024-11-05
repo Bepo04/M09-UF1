@@ -9,11 +9,11 @@ import com.iticbcn.Xifrador;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class XifratgePolialfabetic implements Xifrador {
+public class XifradorPolialfabetic implements Xifrador {
 
-    private final char[] ABC = "AÀÁBCÇDEÈÉFGHIÍÏJKLMNÑOÒÓPQRSTUÚÜVWXYZ".toCharArray();
+    private static final char[] ABC = "AÀÁBCÇDEÈÉFGHIÍÏJKLMNÑOÒÓPQRSTUÚÜVWXYZ".toCharArray();
+    private static final int CLAU_SECRETA = 17492040;
     private char[] abcPermutat;
-    private final int CLAU_SECRETA = 17492040;
     private Random random; 
 
     public void permutaAlfabet() {

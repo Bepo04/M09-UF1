@@ -14,10 +14,14 @@ import java.util.List;
 
 public class XifradorMonoalfabetic implements Xifrador {
 
-    private final char[] abc = {'A', 'À', 'Á', 'B', 'C', 'Ç', 'D', 'E', 'È', 'É', 'F', 'G', 'H', 'I', 'Í', 'Ï', 'J', 'K', 'L', 'M', 
+    private static final char[] abc = {'A', 'À', 'Á', 'B', 'C', 'Ç', 'D', 'E', 'È', 'É', 'F', 'G', 'H', 'I', 'Í', 'Ï', 'J', 'K', 'L', 'M', 
             'N', 'Ñ', 'O', 'Ò', 'Ó', 'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'Ü', 'V', 'W', 'X', 'Y', 'Z'};
 
-    private char[] abcPermutat = new char[abc.length];
+    private static char[] abcPermutat = new char[abc.length];
+
+    public XifradorMonoalfabetic() {
+        permutaAlfabet();
+    }
 
     public void permutaAlfabet() {
         
