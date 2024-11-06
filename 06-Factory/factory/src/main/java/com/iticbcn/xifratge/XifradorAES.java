@@ -87,7 +87,7 @@ public class XifradorAES implements Xifrador {
         try {
             xifrat = xifraAES(msg, clau);
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new ClauNoSuportada(e.getMessage());
         }
         return new TextXifrat(xifrat);
     }
@@ -98,7 +98,7 @@ public class XifradorAES implements Xifrador {
         try {
             desxifrat = desxifraAES(xifrat.getBytes(), clau);
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new ClauNoSuportada(e.getMessage());
         }
         return desxifrat;
     }

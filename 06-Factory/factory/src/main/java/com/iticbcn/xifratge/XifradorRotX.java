@@ -16,7 +16,6 @@ public class XifradorRotX implements Xifrador {
      * segons l'enter indicat. 
      */
     public String xifraRotX(String cadena, int desp) {
-        if (desp >= majuscules.length) return "ERROR: S'accepten valors fins al 37";
         StringBuilder xifrat = new StringBuilder(cadena.length());
         //Troba la lletra
         for (int i = 0; i < cadena.length(); i++) {
@@ -56,7 +55,6 @@ public class XifradorRotX implements Xifrador {
      * segons l'enter indicat. 
      */
     public String desxifraRotX(String cadena, int desp) {
-        if (desp >= majuscules.length) return "ERROR: S'accepten valors fins al 37";
         StringBuilder xifrat = new StringBuilder(cadena.length());
         //Troba la lletra
         for (int i = 0; i < cadena.length(); i++) {
@@ -93,11 +91,25 @@ public class XifradorRotX implements Xifrador {
 
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
-        return null;
+        int key;
+        try {
+            key = Integer.parseInt(clau);
+        } catch (NumberFormatException e) {
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 37");
+        }
+        if (key >= 38 || key < 0) throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 37");
+        return new TextXifrat(xifraRotX(msg, key).getBytes());
     }
 
     @Override
     public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
-        return null;
+        int key;
+        try {
+            key = Integer.parseInt(clau);
+        } catch (NumberFormatException e) {
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 37");
+        }
+        if (key >= 38 || key < 0) throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 37");
+        return desxifraRotX(xifrat.toString(), key);
     }
 }

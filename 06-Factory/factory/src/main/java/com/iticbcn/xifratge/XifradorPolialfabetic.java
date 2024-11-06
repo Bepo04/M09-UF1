@@ -12,7 +12,6 @@ import java.util.Collections;
 public class XifradorPolialfabetic implements Xifrador {
 
     private static final char[] ABC = "AÀÁBCÇDEÈÉFGHIÍÏJKLMNÑOÒÓPQRSTUÚÜVWXYZ".toCharArray();
-    private static final int CLAU_SECRETA = 17492040;
     private char[] abcPermutat;
     private Random random; 
 
@@ -31,7 +30,6 @@ public class XifradorPolialfabetic implements Xifrador {
     }
 
     public String modificaString(String text, boolean esXifrar) {
-        iniciaRandom(CLAU_SECRETA);
         StringBuilder xifrat = new StringBuilder(text.length());
         for (int i = 0; i < text.length(); i++) {
             char afegir = text.charAt(i);
@@ -73,19 +71,29 @@ public class XifradorPolialfabetic implements Xifrador {
         return modificaString(text, false);
     }
 
-    public void iniciaRandom(int clau) {
+    public void iniciaRandom(long clau) {
         random = new Random(clau);
     }
 
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'xifra'");
+        try {
+            long key = Long.parseLong(clau);
+            iniciaRandom(key);
+            return new TextXifrat(xifraPolialfa(msg).getBytes());
+        } catch (Exception e) {
+            throw new ClauNoSuportada("La clau per xifrat Polialfabètic ha de ser un String convertible a long");
+        }
     }
 
     @Override
     public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'desxifra'");
+        try {
+            long key = Long.parseLong(clau);
+            iniciaRandom(key);
+            return desxifraPolialfa(xifrat.toString());
+        } catch (Exception e) {
+            throw new ClauNoSuportada("La clau de Polialfabètic ha de ser un String convertible a long");
+        }
     }
 }
