@@ -83,13 +83,23 @@ public class XifradorAES implements Xifrador {
 
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'xifra'");
+        byte[] xifrat;
+        try {
+            xifrat = xifraAES(msg, clau);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        return new TextXifrat(xifrat);
     }
 
     @Override
     public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'desxifra'");
+        String desxifrat;
+        try {
+            desxifrat = desxifraAES(xifrat.getBytes(), clau);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        return desxifrat;
     }
 }

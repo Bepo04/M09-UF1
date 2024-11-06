@@ -76,11 +76,18 @@ public class XifradorMonoalfabetic implements Xifrador {
 
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
-        return null;
+        if (clau != null) {
+            throw new ClauNoSuportada("Xifratxe monoalfabètic no suporta clau != null");
+        }
+        return new TextXifrat(xifraMonoalfa(msg).getBytes());
     }
 
     @Override
     public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
-        return null;
+        if (clau != null) {
+            throw new ClauNoSuportada("Xifratxe monoalfabètic no suporta clau != null");
+        }
+        String msgXifrat = xifrat.toString();
+        return desxifraMonoalfa(msgXifrat);
     }
 }

@@ -2,16 +2,18 @@ package com.iticbcn;
 
 public class TextXifrat {
     
-    public TextXifrat(byte[] cadena) {
+    private byte[] cadena;
 
+    public TextXifrat(byte[] cadena) {
+        this.cadena = cadena;
     }
 
     @Override
     public String toString() {
-        return null;
+        return new String(cadena);
     }
 
     public byte[] getBytes() {
-        return null;
+        return cadena;
     }
 }
