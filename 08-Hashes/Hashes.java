@@ -1,8 +1,15 @@
 import java.nio.charset.StandardCharsets;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+
 import java.util.HexFormat;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
 public class Hashes {
 
@@ -25,11 +32,38 @@ public class Hashes {
         return strHash;
     }
 
+    public byte[] passwordAndSaltToBytes(String pw, String salt) {
+        byte[] pswdBytes = pw.getBytes();
+        byte[] saltBytes = salt.getBytes();
+        byte[] concatened = new byte[pswdBytes.length + saltBytes.length];
+
+        System.arraycopy(pswdBytes, 0, concatened, 0, pswdBytes.length);
+        System.arraycopy(saltBytes, 0, concatened, pswdBytes.length, saltBytes.length);
+
+        return concatened;
+    }
+
     public String getPBKDF2AmbSalt(String pw, String salt) {
         
-        
-        
-        return "KLK MI GENTE";
+        String hash = null;
+        try {
+            
+            byte[] aSalt = salt.getBytes(StandardCharsets.UTF_8);
+            KeySpec spec = new PBEKeySpec(pw.toCharArray(), aSalt, 65536, 128);
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+
+            byte[] aHash = factory.generateSecret(spec).getEncoded();
+
+            HexFormat hex = HexFormat.of();
+            hash = hex.formatHex(aHash);
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
+
+        return hash;
     }
 
     public String forcaBruta(String alg, String hash, String salt) {
@@ -73,17 +107,6 @@ public class Hashes {
         long milisegons = diferencia / milisPerSegon;
         
         return String.format("%d dies / %d hores / %d minuts / %d segons / %d milisegons", dies, hores, minuts, segons, milisegons);
-    }
-
-    public byte[] passwordAndSaltToBytes(String pw, String salt) {
-        byte[] pswdBytes = pw.getBytes();
-        byte[] saltBytes = salt.getBytes();
-        byte[] concatened = new byte[pswdBytes.length + saltBytes.length];
-
-        System.arraycopy(pswdBytes, 0, concatened, 0, pswdBytes.length);
-        System.arraycopy(saltBytes, 0, concatened, pswdBytes.length, saltBytes.length);
-
-        return concatened;
     }
 
     public static void main(String[] args) throws Exception {
