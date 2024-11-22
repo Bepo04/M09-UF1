@@ -15,9 +15,7 @@ public class Hashes {
 
     private int npass;
 
-    public Hashes() {
-        this.npass = 0;
-    }
+    public Hashes() {}
 
     public String getSHA512AmbSalt(String pw, String salt) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-512");
@@ -66,17 +64,58 @@ public class Hashes {
         return hash;
     }
 
-    public String forcaBruta(String alg, String hash, String salt) {
-        this.npass = 0;
+    public String forcaBruta(String alg, String hash, String salt) throws NoSuchAlgorithmException {
         //A CADA PROVA HA D'INCREMENTAR npass
+        this.npass = 0;
+        char[] charset = "abcdefABCDEF0123456789!".toCharArray();
+        char[] pswd = new char[6];
+        for(int i = 0; i < charset.length; i++) {
+            pswd[0] = charset[i]; 
+            if (hash.equals(executaAlgorisme(alg,  creaPassword(pswd, 1), salt))) return creaPassword(pswd, 1);
 
+            for (int j = 0; j < charset.length; j++) {
+                pswd[1] = charset[j]; 
+                if (hash.equals(executaAlgorisme(alg,  creaPassword(pswd, 2), salt))) return creaPassword(pswd, 2);
+
+                for (int k = 0; k < charset.length; k++) {
+                    pswd[2] = charset[k];
+                    if (hash.equals(executaAlgorisme(alg,  creaPassword(pswd, 3), salt))) return creaPassword(pswd, 3);
+
+                    for (int l = 0; l < charset.length; l++) {
+                        pswd[3] = charset[l];
+                        if (hash.equals(executaAlgorisme(alg,  creaPassword(pswd, 4), salt))) return creaPassword(pswd, 4);
+
+                        for (int m = 0; m < charset.length; m++) {
+                            pswd[4] = charset[m];
+                            if (hash.equals(executaAlgorisme(alg,  creaPassword(pswd, 5), salt))) return creaPassword(pswd, 5);
+
+                            for (int n = 0; n < charset.length; n++) {
+                                pswd[5] = charset[n];
+                                if (hash.equals(executaAlgorisme(alg,  creaPassword(pswd, 6), salt))) return creaPassword(pswd, 6);
+                            }
+                        }
+                    }
+                }
+            }
+        }
         /**
          * Llençar el métode que prova contrassenya en un if, si retorna null seguim, si troba
          * la contrassenya retorna la contrasssenya i surt. CAL FER LA COMPROVACIO A CADA BUCLE
          */
-        return "MIGENTE KLK";
+        return "FALLO LOCO";
 
-    } 
+    }
+
+    public String creaPassword(char[] caracters, int length) {
+        return new String(caracters).substring(0,length);
+    }
+
+    public String executaAlgorisme(String alg, String hash, String salt) throws NoSuchAlgorithmException {
+        this.npass++;
+        if (alg.equals("SHA-512")) return getSHA512AmbSalt(hash, salt);
+        else return getPBKDF2AmbSalt(hash, salt);
+
+    }
 
     /**
      * 
@@ -111,7 +150,7 @@ public class Hashes {
 
     public static void main(String[] args) throws Exception {
         String salt = "qpoweiruañslkdfjz";
-        String pw = "aaabF!";
+        String pw = "aAf!81";
         Hashes h = new Hashes();
         String[] aHashes = { h.getSHA512AmbSalt(pw, salt),
         h.getPBKDF2AmbSalt(pw, salt) };
