@@ -107,6 +107,7 @@ public class Hashes {
     }
 
     public String creaPassword(char[] caracters, int length) {
+        System.out.println(new String(caracters).substring(0,length));
         return new String(caracters).substring(0,length);
     }
 
@@ -150,7 +151,7 @@ public class Hashes {
 
     public static void main(String[] args) throws Exception {
         String salt = "qpoweiruañslkdfjz";
-        String pw = "aAf!81";
+        String pw = "!";
         Hashes h = new Hashes();
         String[] aHashes = { h.getSHA512AmbSalt(pw, salt),
         h.getPBKDF2AmbSalt(pw, salt) };
